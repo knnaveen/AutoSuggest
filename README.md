@@ -1,5 +1,6 @@
 # SampleAutoSuggest
 
+This project shows how to use AutoSuggest[https://github.com/ng2-ui/auto-complete] in Angular JS
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.28.3.
 
 ## Development server
