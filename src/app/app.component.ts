@@ -22,7 +22,7 @@ export class AppComponent {
   }
 
   observableBuyerListSource(filter: string) {
-    if (filter.length >= 3 && filter.length < 5) {
+
       this.buyerDetails.length = 0;
       this
         ._service
@@ -41,7 +41,7 @@ export class AppComponent {
         }, () => {
           console.log("Get buyer details finished.")
         });
-    }
+    
     return Observable.of(this.buyerDetails);
   }
 }

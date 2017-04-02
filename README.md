@@ -29,3 +29,68 @@ Run `ng github-pages:deploy` to deploy to GitHub Pages.
 ## Further help
 
 To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# SampleAutoSuggest Project 
+
+## Install AutoSuggest 
+Install AutoSuggest using  - npm install ng2-auto-complete --sav
+[Reference - https://www.npmjs.com/package/ng2-auto-complete]
+
+## import Ng2AutoCompleteModule to  AppModule
+
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    Ng2AutoCompleteModule
+
+  ],
+  providers: [AppComponentService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+## Create observable source to retrieve data from JSON source
+
+  observableBuyerListSource(filter: string) {
+
+      this.buyerDetails.length = 0;
+      this
+        ._service
+        .getBuyerDetails(filter)
+        .subscribe(res => {
+          let response: Buyer[] = res;
+          let i = 0;
+          for (let buyer of response) {
+            this.buyerDetails[i] = buyer.buyerId + " - " + buyer.buyerName;
+            i++;
+          }
+        
+        }, error => {
+          console.log(error)
+        
+        }, () => {
+          console.log("Get buyer details finished.")
+        });
+    
+    return Observable.of(this.buyerDetails);
+  }
+
+## Use in html to read suggested values from Observable source
+
+    <label for="buyer"> Buyer</label>
+    <input  ng2-auto-complete 
+      [(ngModel)]="buyer" 
+      [source]="observableBuyerListSource.bind(this)" 
+      min-chars=3  
+      loading-text="Loading..." 
+      accept-user-input="false" 
+      no-match-found-text=""
+        id="buyer"><br>
